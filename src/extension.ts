@@ -1,27 +1,54 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+let isEnableQuickOpenExtension = true;
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "quickopen-with-selection" is now active!');
+	updateConfiguration();
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('quickopen-with-selection.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
+	context.subscriptions.push(
+		vscode.commands.registerCommand(
+			'quickopen-with-selection.run', openQuickOpenPanel));
+	context.subscriptions.push(
+		vscode.commands.registerCommand(
+			'quickopen-with-selection.toggleEnable', toggleOpenQuickOpenPanel));
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from quickopen-with-selection!');
+	vscode.workspace.onDidChangeConfiguration(() => {
+		updateConfiguration();
 	});
-
-	context.subscriptions.push(disposable);
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
+
+function updateConfiguration() {
+	isEnableQuickOpenExtension = vscode.workspace.getConfiguration('quickopenWithSelection').get('prefillWithSelection') ?? true;
+}
+
+function openQuickOpenPanel() {
+	let selectedText = "";
+
+	const editor = vscode.window.activeTextEditor;
+
+	if (editor && isEnableQuickOpenExtension) {
+		selectedText = editor.selections
+			.map(s => editor.document.getText(s))
+			.join('');
+	}
+
+	vscode.commands.executeCommand(
+		'workbench.action.quickOpen', selectedText);
+}
+
+function toggleOpenQuickOpenPanel() {
+	isEnableQuickOpenExtension = !isEnableQuickOpenExtension;
+
+	// Update configuration
+	vscode.workspace
+		.getConfiguration('quickopenWithSelection')
+		.update('prefillWithSelection', isEnableQuickOpenExtension);
+
+	// Notify to user
+	const current = isEnableQuickOpenExtension ? "Enable" : "Disable";
+	vscode.window.showInformationMessage(
+		`Extension "QuickOpen with selected text" is now ${current}`
+	);
+}

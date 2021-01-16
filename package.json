@@ -1,26 +1,67 @@
 {
-	"name": "quickopen-with-selection",
-	"displayName": "quickopen-with-selection",
+	"name": "jp-katohirohito-extension-vscode-quickopen-with-selection",
+	"displayName": "QuickOpen with selected text",
 	"description": "Run QuickOpen command with selected text",
+	"author": "Hirohito Kato",
+	"publisher": "hkato193",
 	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.52.0"
-	},
+	"license": "MIT",
+	"keywords": [
+		"quickopen",
+		"selection",
+		"prefill"
+	],
 	"categories": [
 		"Other"
 	],
+	"bugs": {
+		"url": "https://github.com/hirohitokato/quickopen-with-selection/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/hirohitokato/quickopen-with-selection.git"
+	},
+	"homepage": "https://github.com/hirohitokato/quickopen-with-selection",
 	"activationEvents": [
-		"onCommand:quickopen-with-selection.helloWorld"
+		"onCommand:quickopen-with-selection.run",
+		"onCommand:quickopen-with-selection.toggleEnable"
 	],
-	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "quickopen-with-selection.helloWorld",
-				"title": "Hello World"
+				"command": "quickopen-with-selection.run",
+				"title": "Open QuickOpen panel with selected text"
+			},
+			{
+				"command": "quickopen-with-selection.toggleEnable",
+				"title": "Toggle enable/disable 'Open QuickOpen panel with selected text'"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "quickopen-with-selection.run",
+				"key": "ctrl+p",
+				"mac": "cmd+p"
+			}
+		],
+		"configuration": [
+			{
+				"title": "QuickOpen with selected text",
+				"properties": {
+					"quickopenWithSelection.prefillWithSelection": {
+						"type": "boolean",
+						"default": true,
+						"description": "Set to 'true' to show QuickOpen panel with currently selected text in the active text editor.",
+						"scope": "application"
+					}
+				}
 			}
 		]
 	},
+	"engines": {
+		"vscode": "^1.52.0"
+	},
+	"main": "./out/extension.js",
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
