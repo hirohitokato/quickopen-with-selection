@@ -48,7 +48,7 @@
 			{
 				"title": "QuickOpen with selected text",
 				"properties": {
-					"quickopenWithSelection.prefillWithSelection": {
+					"quickopenWithSelection.enable": {
 						"type": "boolean",
 						"default": true,
 						"description": "Set to 'true' to show QuickOpen panel with currently selected text in the active text editor.",
