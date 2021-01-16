@@ -14,7 +14,7 @@ You can toggle enable/disable prefilling via configuration.
 
 1. Select some text in the editor.
 1. Press `control + P` key (on macOS, `⌘ + P`).
-1. See the input area :+1:
+1. See the input area 👍
 
 ## Extension Settings
 
