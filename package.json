@@ -2,6 +2,7 @@
 	"name": "jp-katohirohito-extension-vscode-quickopen-with-selection",
 	"displayName": "QuickOpen with selected text",
 	"description": "Run QuickOpen command with selected text",
+	"icon": "assets/icon.png",
 	"author": "Hirohito Kato",
 	"publisher": "hkato193",
 	"version": "0.0.1",
