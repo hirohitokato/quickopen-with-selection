@@ -5,7 +5,7 @@
 	"icon": "assets/icon.png",
 	"author": "Hirohito Kato",
 	"publisher": "hkato193",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"license": "MIT",
 	"keywords": [
 		"quickopen",
